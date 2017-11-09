@@ -24,20 +24,6 @@ namespace RxCounter
 
             this.WireUpControls();
 
-            /*
-            MyButton.Events()
-                    .Click
-                    .Select(_ => Unit.Default)
-                    .InvokeCommand(ViewModel.IncrementClickCount);
-
-            this.OneWayBind(
-                this.ViewModel,
-                vm => vm.ClickCount,
-                ma => ma.MyButton.Text,
-                n => $"{n} clicks"
-            );
-            */
-
             MyButton.Events()
                     .Click
                     .Select(_ => Unit.Default)

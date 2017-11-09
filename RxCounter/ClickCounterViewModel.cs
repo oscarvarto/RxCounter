@@ -7,25 +7,10 @@ namespace RxCounter
 {
     public class ClickCounterViewModel : ReactiveObject
     {
-        /*
-        byte _clickCount = 0;
-
-        public byte ClickCount
-        {
-            get { return _clickCount; }
-            set { this.RaiseAndSetIfChanged(ref _clickCount, value); }
-        }
-
-
-        public ReactiveCommand IncrementClickCount =>
-            ReactiveCommand.Create(() => ClickCount++);
-        */
-
-
         public ClickCounterViewModel()
         {
 
-            _IOIntensiveCmd = ReactiveCommand.CreateFromTask(async _ =>
+            _IOIntensiveCmd = ReactiveCommand.CreateFromTask(async () =>
             {
                 Done = false;
                 await Task.Delay(TimeSpan.FromSeconds(1.0));
