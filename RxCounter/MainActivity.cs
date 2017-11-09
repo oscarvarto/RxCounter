@@ -24,38 +24,16 @@ namespace RxCounter
 
             this.WireUpControls();
 
-            /*
-            MyButton.Events()
-                    .Click
-                    .Select(_ => Unit.Default)
-                    .InvokeCommand(ViewModel.IncrementClickCount);
+            this.BindCommand(
+                ViewModel,
+                vm => vm.IOIntensiveCmd,
+                ma => ma.MyButton);
 
-            this.OneWayBind(
-                this.ViewModel,
-                vm => vm.ClickCount,
-                ma => ma.MyButton.Text,
-                n => $"{n} clicks"
-            );
-            */
-
-            MyButton.Events()
-                    .Click
-                    .Select(_ => Unit.Default)
-                    .InvokeCommand(ViewModel.IOIntensiveCmd);
-
-            this.OneWayBind(
-                this.ViewModel,
-                vm => vm.Done,
-                ma => ma.MyButton.Enabled
-            );
-
-            this.OneWayBind(
-                this.ViewModel,
-                vm => vm.Done,
-                ma => ma.MyButton.Text,
-                b => b ? "Enabled" : "Disabled"
-            );
-
+            ViewModel
+                .IOIntensiveCmd
+                .IsExecuting
+                .Select(b => b ? "Disabled" : "Enabled")
+                .BindTo(MyButton, btn => btn.Text);
         }
 
         public Button MyButton { get; private set; }
