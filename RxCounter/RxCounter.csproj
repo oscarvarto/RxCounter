@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>RxCounter</RootNamespace>
     <AssemblyName>RxCounter</AssemblyName>
-    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
@@ -61,15 +61,15 @@
     <Reference Include="Splat">
       <HintPath>..\packages\Splat.2.0.0\lib\MonoAndroid403\Splat.dll</HintPath>
     </Reference>
-    <Reference Include="ReactiveUI">
-      <HintPath>..\packages\ReactiveUI.8.0.0-alpha0110\lib\monoandroid70\ReactiveUI.dll</HintPath>
-    </Reference>
     <Reference Include="Java.Interop" />
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="ReactiveUI.Events">
       <HintPath>..\packages\reactiveui-events.8.0.0-alpha0109\lib\monoandroid70\ReactiveUI.Events.dll</HintPath>
+    </Reference>
+    <Reference Include="ReactiveUI">
+      <HintPath>..\packages\ReactiveUI.8.0.0-alpha0113\lib\monoandroid80\ReactiveUI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -1,8 +1,4 @@
 ﻿using ReactiveUI;
-using System.Threading.Tasks;
-using System;
-using System.Reactive.Linq;
-using System.Reactive;
 
 namespace RxCounter
 {

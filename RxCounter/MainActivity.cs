@@ -1,12 +1,10 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using Android.App;
 using Android.OS;
 using Android.Widget;
 using ReactiveUI;
-using System.Reactive.Threading.Tasks;
 
 namespace RxCounter
 {
