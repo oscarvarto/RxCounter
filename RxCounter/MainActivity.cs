@@ -22,8 +22,8 @@ namespace RxCounter
 
             MyButton.Events()
                 .Click
-                .Select(_ => Unit.Default)
-                .InvokeCommand(this.ViewModel, vm => vm.IncreaseCount);
+                .Scan(0, (count, _) => (count + 1) % 10)
+                .InvokeCommand(this.ViewModel, vm => vm.SetCount);
 
             this.OneWayBind(
                 this.ViewModel,

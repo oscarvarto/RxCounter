@@ -1,14 +1,23 @@
-﻿using ReactiveUI;
+﻿using System;
+using ReactiveUI;
+using System.Reactive.Linq;
+using System.Reactive;
 
 namespace RxCounter
 {
     public class ClickCounterViewModel : ReactiveObject
     {
-
         public ClickCounterViewModel()
         {
-            _increaseCount = ReactiveCommand.Create(() => ClickCount++);
+            _setCount = ReactiveCommand.Create<int, Unit>(n =>
+            {
+                ClickCount = n;
+                return Unit.Default;
+            });
         }
+
+        ReactiveCommand<int, Unit> _setCount;
+        public ReactiveCommand<int, Unit> SetCount => _setCount;
 
         int _clickCount = 0;
         public int ClickCount
@@ -17,7 +26,5 @@ namespace RxCounter
             set { this.RaiseAndSetIfChanged(ref _clickCount, value); }
         }
 
-        ReactiveCommand _increaseCount;
-        public ReactiveCommand IncreaseCount => _increaseCount;
     }
 }
