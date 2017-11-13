@@ -17,17 +17,13 @@ namespace RxCounter
         {
             base.OnCreate(savedInstanceState);
 
-            // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
+            this.WireUpControls();
             ViewModel = new ClickCounterViewModel();
 
-            this.WireUpControls();
-
-            // Doesn't do anything
             MyButton.Events()
                 .Click
-                // .Count() Adding .Count() makes the app to stop working!
                 .Select(_ => Unit.Default)
                 .InvokeCommand(this.ViewModel, vm => vm.IncreaseCount);
 
