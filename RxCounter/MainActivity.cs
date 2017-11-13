@@ -24,24 +24,12 @@ namespace RxCounter
 
             this.WireUpControls();
 
-            /* Doesn't do anything
-            _count = MyButton.Events()
+            // Doesn't do anything
+            MyButton.Events()
                 .Click
+                // .Count() Adding .Count() makes the app to stop working!
                 .Select(_ => Unit.Default)
-                .Count()
-                .Do(n => Console.WriteLine($"Count {n}"))
-                .ToProperty(this, v => v.Count, 0);
-            */
-
-            /* Exception: Index expressions are supported only with constants
-            this.WhenAnyObservable(v => v.MyButton.Events().Click)
-                .Select(_ => Unit.Default).Count()
-                .Subscribe(n =>
-                {
-                    Console.WriteLine($"Inside Subscribe: {n}");
-                    ViewModel.ClickCount = n;
-                });
-            */
+                .InvokeCommand(this.ViewModel, vm => vm.IncreaseCount);
 
             this.OneWayBind(
                 this.ViewModel,
@@ -51,9 +39,6 @@ namespace RxCounter
         }
 
         public Button MyButton { get; private set; }
-
-        ObservableAsPropertyHelper<int> _count;
-        public int Count => _count.Value;
     }
 }
 
