@@ -24,19 +24,36 @@ namespace RxCounter
 
             this.WireUpControls();
 
-            this.BindCommand(
-                ViewModel,
-                vm => vm.IOIntensiveCmd,
-                ma => ma.MyButton);
+            /* Doesn't do anything
+            _count = MyButton.Events()
+                .Click
+                .Select(_ => Unit.Default)
+                .Count()
+                .Do(n => Console.WriteLine($"Count {n}"))
+                .ToProperty(this, v => v.Count, 0);
+            */
 
-            ViewModel
-                .IOIntensiveCmd
-                .IsExecuting
-                .Select(b => b ? "Disabled" : "Enabled")
-                .BindTo(MyButton, btn => btn.Text);
+            /* Exception: Index expressions are supported only with constants
+            this.WhenAnyObservable(v => v.MyButton.Events().Click)
+                .Select(_ => Unit.Default).Count()
+                .Subscribe(n =>
+                {
+                    Console.WriteLine($"Inside Subscribe: {n}");
+                    ViewModel.ClickCount = n;
+                });
+            */
+
+            this.OneWayBind(
+                this.ViewModel,
+                m => m.ClickCount,
+                v => v.MyButton.Text,
+                n => $"{n} clicks");
         }
 
         public Button MyButton { get; private set; }
+
+        ObservableAsPropertyHelper<int> _count;
+        public int Count => _count.Value;
     }
 }
 

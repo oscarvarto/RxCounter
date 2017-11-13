@@ -7,15 +7,15 @@ namespace RxCounter
 {
     public class ClickCounterViewModel : ReactiveObject
     {
-        public ClickCounterViewModel()
+        int _clickCount = 0;
+        public int ClickCount
         {
-            _IOIntensiveCmd = ReactiveCommand.CreateFromTask(async _ =>
+            get { return _clickCount; }
+            set
             {
-                await Task.Delay(TimeSpan.FromSeconds(1.0));
-            });
+                Console.WriteLine($"Hello from ClickCount setter: {value}");
+                this.RaiseAndSetIfChanged(ref _clickCount, value);
+            }
         }
-
-        readonly ReactiveCommand _IOIntensiveCmd;
-        public ReactiveCommand IOIntensiveCmd => this._IOIntensiveCmd;
     }
 }
