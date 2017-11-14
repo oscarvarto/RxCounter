@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using System.Reactive;
-using System.Reactive.Linq;
-using Android.App;
+﻿using Android.App;
 using Android.OS;
 using Android.Widget;
 using ReactiveUI;
@@ -18,15 +15,10 @@ namespace RxCounter
             SetContentView(Resource.Layout.Main);
 
             this.WireUpControls();
-            ViewModel = new ClickCounterViewModel();
-
-            MyButton.Events()
-                .Click
-                .Scan(0, (count, _) => (count + 1) % 10)
-                .InvokeCommand(this.ViewModel, vm => vm.SetCount);
+            ViewModel = new ClickCounterViewModel(MyButton.Events().Click);
 
             this.OneWayBind(
-                this.ViewModel,
+                ViewModel,
                 m => m.ClickCount,
                 v => v.MyButton.Text,
                 n => $"{n} clicks");

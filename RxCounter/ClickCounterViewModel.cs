@@ -1,30 +1,19 @@
-﻿using System;
-using ReactiveUI;
+﻿using ReactiveUI;
+using System;
 using System.Reactive.Linq;
-using System.Reactive;
 
 namespace RxCounter
 {
     public class ClickCounterViewModel : ReactiveObject
     {
-        public ClickCounterViewModel()
+        public ClickCounterViewModel(IObservable<EventArgs> clickObs)
         {
-            _setCount = ReactiveCommand.Create<int, Unit>(n =>
-            {
-                ClickCount = n;
-                return Unit.Default;
-            });
+             _clickCount = clickObs
+                .Scan(0, (count, _) => count + 1)
+                .ToProperty(this, vm => vm.ClickCount);
         }
 
-        ReactiveCommand<int, Unit> _setCount;
-        public ReactiveCommand<int, Unit> SetCount => _setCount;
-
-        int _clickCount = 0;
-        public int ClickCount
-        {
-            get { return _clickCount; }
-            set { this.RaiseAndSetIfChanged(ref _clickCount, value); }
-        }
-
+        ObservableAsPropertyHelper<int> _clickCount;
+        public int ClickCount => _clickCount.Value;
     }
 }
